@@ -1,0 +1,4 @@
+.vscode
+blacklist.db
+blacklist.sqlite
+markers.js
