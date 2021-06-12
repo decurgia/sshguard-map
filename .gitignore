@@ -1,3 +1,4 @@
+.DS_Store
 .vscode
 blacklist.db
 blacklist.sqlite
