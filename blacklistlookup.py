@@ -1,3 +1,4 @@
+import argparse
 import urllib.request
 import urllib.parse
 import urllib.error
@@ -6,6 +7,20 @@ import base64
 import sqlite3
 import json
 
+parser = argparse.ArgumentParser(description='Lookup coordinates of IP addresses.')
+parser.add_argument('-u', '--username', 
+                    dest='username',
+                    required=True,
+                    type=str,
+                    help='Maxmind username')
+parser.add_argument('-p', '--password',
+                    dest='password',
+                    required=True,
+                    type=str,
+                    help='Maxmind password')
+
+args = parser.parse_args()
+
 # Ignore SSL certificate errors
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
@@ -13,9 +28,9 @@ ctx.verify_mode = ssl.CERT_NONE
 
 # Sign-up at https://www.maxmind.com/en/geolite2/signup
 # Then generate username & password at https://www.maxmind.com/en/accounts/current/license-key
-username = ''
-password = ''
-b64auth = base64.standard_b64encode((username + ":" + password).encode("utf-8")).decode()
+b64auth = base64.standard_b64encode((args.username
+                                     + ":"
+                                     + args.password).encode("utf-8")).decode()
 
 
 def retrieve_latlongorg(ip_address):

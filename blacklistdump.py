@@ -1,5 +1,13 @@
+import argparse
 import sqlite3
 import json
+
+parser = argparse.ArgumentParser(description='Dump coordinates into file.')
+parser.add_argument('-o', '--output',
+                    default='./markers.js',
+                    type=str,
+                    help='Path to markers.js file (default: ./markers.js)')
+args = parser.parse_args()
 
 blacklist_db = sqlite3.connect('blacklist.sqlite')
 blacklist_cursor = blacklist_db.cursor()
@@ -39,7 +47,7 @@ for entry in markers_dict.values():
     marker["total"] = entry[3]
     markers_list.append(marker)
 
-markers_file = open('markers.js', 'w')
+markers_file = open(args.output, 'w')
 markers_file.write("markers = " + json.dumps(markers_list, indent=4))
 markers_file.close()
 

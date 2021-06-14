@@ -2,12 +2,18 @@ import argparse
 import sqlite3
 
 parser = argparse.ArgumentParser(description='Import blacklist into database.')
-parser.add_argument('--blacklist',
+parser.add_argument('-b', '--blacklist',
                     default='/var/db/sshguard/blacklist.db',
+                    type=str,
                     help='Path to sshguard blacklist.db file (default: /dev/db/sshguard/blacklist.db)')
 args = parser.parse_args()
 
-blacklist_file = open(args.blacklist)
+try:
+    blacklist_file = open(args.blacklist)
+except FileNotFoundError as err:
+    print(err)
+    parser.print_help()
+    quit()
 
 blacklist_db = sqlite3.connect('blacklist.sqlite')
 blacklist_cursor = blacklist_db.cursor()
