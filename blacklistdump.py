@@ -5,9 +5,9 @@ import datetime
 
 parser = argparse.ArgumentParser(description='Dump coordinates into file.')
 parser.add_argument('-o', '--output',
-                    default='./markers.json',
+                    default='./markers.js',
                     type=str,
-                    help='Path to markers.json file (default: ./markers.json)')
+                    help='Path to markers.js file (default: ./markers.js)')
 args = parser.parse_args()
 
 blacklist_db = sqlite3.connect('blacklist.sqlite')
@@ -54,8 +54,8 @@ markers_meta['created_on'] = dump_created_on.strftime('%Y-%m-%d')
 markers_meta['count'] = len(markers_list)
 
 markers_file = open(args.output, 'w')
-markers_file.write('markers = ' + json.dumps(markers_list, indent=4) + '\n\n')
-markers_file.write('markers_meta = ' + json.dumps(markers_meta, indent=4))
+markers_file.write('var markers = ' + json.dumps(markers_list, indent=4) + '\n\n')
+markers_file.write('var markers_meta = ' + json.dumps(markers_meta, indent=4))
 markers_file.close()
 
 
