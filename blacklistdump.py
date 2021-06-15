@@ -4,9 +4,9 @@ import json
 
 parser = argparse.ArgumentParser(description='Dump coordinates into file.')
 parser.add_argument('-o', '--output',
-                    default='./markers.js',
+                    default='./markers.json',
                     type=str,
-                    help='Path to markers.js file (default: ./markers.js)')
+                    help='Path to markers.json file (default: ./markers.json)')
 args = parser.parse_args()
 
 blacklist_db = sqlite3.connect('blacklist.sqlite')
