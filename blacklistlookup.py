@@ -88,6 +88,7 @@ blacklist_incomplete_list.close()
 blacklist_last_updated_list = blacklist_db.cursor()
 blacklist_last_updated_list.execute('''SELECT ip_address
                FROM Blacklist
+               WHERE updated_on < DATETIME('now', '-6 month')
                ORDER BY updated_on ASC''')
 
 for row in blacklist_last_updated_list:
