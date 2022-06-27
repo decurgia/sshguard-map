@@ -1,5 +1,13 @@
 .DS_Store
-.vscode
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# pyenv
+venv/
+
+# sshguard-map
 blacklist.db
 blacklist.sqlite
 markers.js
