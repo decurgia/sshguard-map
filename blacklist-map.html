@@ -32,7 +32,7 @@
 		}).addTo(mymap);
 
 		for (var i = 0; i < markers.length; i++) {
-			L.circleMarker([markers[i]['latitude'], markers[i]['longitude']], { color: 'red', radius: Math.log2(markers[i]['total']) } + 1).addTo(mymap).bindPopup(markers[i]['description'])
+			L.circleMarker([markers[i]['latitude'], markers[i]['longitude']], { color: 'red', radius: Math.log2(markers[i]['total'] + 1) }).addTo(mymap).bindPopup(markers[i]['description'])
 		};
 
 	</script>
