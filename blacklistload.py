@@ -7,7 +7,7 @@ parser.add_argument(
     "--blacklist",
     default="/var/db/sshguard/blacklist.db",
     type=str,
-    help="Path to sshguard blacklist.db file (default: /dev/db/sshguard/blacklist.db)",
+    help="Path to sshguard blacklist.db file (default: /var/db/sshguard/blacklist.db)",
 )
 args = parser.parse_args()
 
@@ -24,6 +24,7 @@ blacklist_cursor = blacklist_db.cursor()
 blacklist_cursor.execute(
     """CREATE TABLE IF NOT EXISTS Blacklist
             (ip_address TEXT PRIMARY KEY UNIQUE,
+            created_on TEXT,
             updated_on TEXT,
             latitude REAL,
             longitude REAL,
@@ -53,10 +54,11 @@ blacklist_cursor.execute(
 
 for entry in blacklist_file:
     pieces = entry.split("|")
+    epochtime = pieces[0].lstrip()
     ip_address = pieces[3].rstrip()
 
     blacklist_cursor.execute(
-        """INSERT OR IGNORE INTO Blacklist (ip_address) VALUES (?)""",
+        """INSERT OR IGNORE INTO Blacklist (created_on, ip_address) VALUES (?)""",
         (ip_address,),
     )
 
