@@ -59,7 +59,10 @@ for entry in blacklist_file:
 
     blacklist_cursor.execute(
         """INSERT OR IGNORE INTO Blacklist (created_on, ip_address) VALUES (DATETIME(?), ?)""",
-        (ip_address,),
+        (
+            epochtime,
+            ip_address,
+        ),
     )
 
 blacklist_db.commit()
