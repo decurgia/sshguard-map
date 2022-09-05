@@ -58,7 +58,7 @@ for entry in blacklist_file:
     ip_address = pieces[3].rstrip()
 
     blacklist_cursor.execute(
-        """INSERT OR IGNORE INTO Blacklist (created_on, ip_address) VALUES (?)""",
+        """INSERT OR IGNORE INTO Blacklist (created_on, ip_address) VALUES (DATETIME(?), ?)""",
         (ip_address,),
     )
 
