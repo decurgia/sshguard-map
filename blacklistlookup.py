@@ -53,7 +53,9 @@ def retrieve_latlongorgiso(ip_address):
     try:
         latitude = geoip_json["location"]["latitude"]
         longitude = geoip_json["location"]["longitude"]
-        organization = geoip_json["traits"]["autonomous_system_organization"]
+        organization = geoip_json.get(
+            ["traits"]["autonomous_system_organization"], "N/A"
+        )
         iso_code = geoip_json["country"]["iso_code"]
     except KeyError as err:
         print("KeyError", err)
